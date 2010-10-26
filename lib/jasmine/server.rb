@@ -101,6 +101,8 @@ module Jasmine
   def self.app(config)
     Rack::Builder.app do
       use Rack::Head
+      use Rack::Lint
+      use Rack::CommonLogger
 
       map('/run.html')         { run Jasmine::Redirect.new('/') }
       map('/__suite__')        { run Jasmine::FocusedSuite.new(config) }
