@@ -104,6 +104,10 @@ module Jasmine
       use Rack::Lint
       use Rack::CommonLogger
 
+      if File.directory?(Dir.pwd + "/public/images") then
+        map('/images')         { run Rack::File.new(Dir.pwd + "/public/images") }
+      end
+
       map('/run.html')         { run Jasmine::Redirect.new('/') }
       map('/__suite__')        { run Jasmine::FocusedSuite.new(config) }
 
